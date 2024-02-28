@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Configures a new Ubuntu machine with nginx.
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow "Nginx HTTP" # allow incoming connections from nginx
+# sudo ufw status verbose: should return inactive
+cd /var/www/ || return
+sudo chmod 777 html
+echo "Hello World!" > html/index.html
+sudo chmod 755 html
+# Configure your Nginx server to redirect to another page
+cd /etc/nginx/sites-enabled/ || return
+REDIRECT_CONFIG="\tlocation /redirect_me {\n\t\treturn 301 https://www.alxafrica.com;\n\t}"
+sudo sed -i "52 a \    $REDIRECT_CONFIG" /etc/nginx/sites-enabled/default
+sudo service nginx restart
