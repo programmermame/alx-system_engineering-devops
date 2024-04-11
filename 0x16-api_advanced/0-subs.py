@@ -11,8 +11,9 @@ def number_of_subscribers(subreddit):
                             .format(subreddit),
                             headers={"User-Agent": "ALX"},
                             allow_redirects=False)
-    if sub_info.status_code != 300:
+    if sub_info.status_code != 200:
         return 0
+
     try:
         data = sub_info.json()
         subscribers = data["data"]["subscribers"]
