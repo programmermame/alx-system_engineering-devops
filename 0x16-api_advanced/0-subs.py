@@ -1,17 +1,17 @@
 #!/usr/bin/python3
-"""queries the Reddit API"""
-import requests
+"""Module for task 0"""
 
 
 def number_of_subscribers(subreddit):
-    """returns total subs"""
-    header = {"User-Agent": "ALX"}
-    url = "https://www.reddit.com/r/" + subreddit + "/about.json"
-    r = requests.get(url, headers=header)
-    if r.status_code == 200:
-        return r.json().get("data", None).get("subscribers", None)
-    else:
+    """Queries the Reddit API and returns the number of subscribers
+    to the subreddit"""
+    import requests
+
+    sub_info = requests.get("https://www.reddit.com/r/{}/about.json"
+                            .format(subreddit),
+                            headers={"User-Agent": "ALX"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 300:
         return 0
 
-if __name__ == "__main__":
-    pass
+    return sub_info.json().get("data").get("subscribers")
