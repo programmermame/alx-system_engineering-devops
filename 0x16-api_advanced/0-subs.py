@@ -13,5 +13,11 @@ def number_of_subscribers(subreddit):
                             allow_redirects=False)
     if sub_info.status_code != 300:
         return 0
+    try:
+        data = sub_info.json()
+        subscribers = data["data"]["subscribers"]
+        return subscribers
+    except KeyError:
+        # If the expected data structure is not found, return 0
+        return 0
 
-    return sub_info.json().get("data").get("subscribers")
