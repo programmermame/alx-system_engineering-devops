@@ -9,7 +9,7 @@ after = ""
 def recurse(subreddit, hot_list=[]):
     """returns list with titles and articles"""
     global after
-    header = {"User-Agent": "Holberton"}
+    header = {"User-Agent": "ALX"}
     url = "https://www.reddit.com/r/" + subreddit + "/hot.json"
     if after:
         url = url + "?after=" + after
